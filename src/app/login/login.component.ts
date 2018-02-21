@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   template: `
+  <p> MENU </p>
   <app-button></app-button>
    <h2> STUDENT LIST</h2>
-   <table style="width:100%">
+   <table style="width:50%">
   <tr style="text-align: left">
     <th>ID</th>
     <th>NAME</th> 
@@ -22,13 +23,15 @@ import { Router } from '@angular/router';
   </tr>
   
 </table>
+<br>
+
    `,
   styles: []
 })
 export class LoginComponent implements OnInit {
 public students=[];
 
-  constructor( private _studentService: StudentService) { }
+  constructor( private _studentService: StudentService,private route:Router) { }
 
   ngOnInit() {
   this.students=this._studentService.getStudent();

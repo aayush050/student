@@ -6,14 +6,20 @@ import {TestComponent } from './test/test.component';
 import { AddComponent } from './add/add.component';
 import { ButtonComponent } from './button/button.component';
 import { StulistComponent } from './stulist/stulist.component';
+import { EditstudentComponent } from './editstudent/editstudent.component';
+import { EditingComponent } from './editing/editing.component';
+
 
 const routes: Routes =[
-    { path: '',redirectTo: 'test',pathMatch: 'full'},
-    {path: 'login',component: LoginComponent},
-    {path: 'test', component: TestComponent},
+    { path: '',redirectTo: 'login',pathMatch: 'full'},
+    {path: 'menu',component: LoginComponent},
+    {path: 'login', component: TestComponent},
     {path: 'add', component: AddComponent},
-    {path: 'stulist',component: LoginComponent},
-    { path: "**", component: PageNotFoundComponent}
+    {path: 'studentlist',component: StulistComponent},
+    {path: 'edit', component: EditstudentComponent},
+    {path: "editing",component:EditingComponent},
+    {path: "**", component: PageNotFoundComponent}
+    
 ];
 
 @NgModule({
@@ -21,5 +27,5 @@ const routes: Routes =[
     exports: [RouterModule]
 })
 export class AppRoutingModule{}
-export const routingComponents = [LoginComponent,PageNotFoundComponent,AddComponent,StulistComponent,ButtonComponent]
+export const routingComponents = [LoginComponent,PageNotFoundComponent,AddComponent,StulistComponent,ButtonComponent,EditstudentComponent,EditingComponent]
 

@@ -3,9 +3,11 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-button',
   template: `
-  <button (click)="onClicka()">STUDENT LIST</button>
-  <button (click)="onClick()" >ADD STUDENT</button>
-  <button >EDIT STUDENT </button>
+  <button (click)="goToStudentList()">STUDENT LIST</button>
+  <button (click)="goToAddStudent()" >ADD STUDENT</button>
+  <button (click)= "goToEditStudentList()" >EDIT STUDENT </button>
+  <button type="submit" (click)="logout()">LOGOUT</button>
+<br>
   `,
   styles: []
 })
@@ -16,12 +18,20 @@ export class ButtonComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClick()
+  goToAddStudent()
 {
   this.route.navigate(['/add']);
 }
-onClicka()
+goToStudentList()
 {
-  this.route.navigate(['/stulist']);
+  this.route.navigate(['/studentlist']);
+}
+goToEditStudentList()
+{
+  this.route.navigate(['/edit']);
+}
+logout()
+{
+this.route.navigate(['/login']);
 }
 }

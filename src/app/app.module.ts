@@ -12,6 +12,8 @@ import { FormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button/button.component';
 import { StulistComponent } from './stulist/stulist.component';
+import { EditstudentComponent } from './editstudent/editstudent.component';
+import { EditingComponent } from './editing/editing.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { StulistComponent } from './stulist/stulist.component';
     PageNotFoundComponent,
     AddComponent,
     ButtonComponent,
-    StulistComponent
+    StulistComponent,
+    EditstudentComponent,
+    EditingComponent
   
   ],
   imports: [
