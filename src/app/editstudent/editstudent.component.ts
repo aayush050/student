@@ -7,12 +7,13 @@ import { StudentService } from '../student.service';
    
    <app-button></app-button>
    <h2> STUDENT LIST</h2>
-   <table style="width:50%">
+   <table style="width:70%">
   <tr style="text-align: left">
     <th>ID</th>
     <th>NAME</th> 
     <th>AGE</th>
     <th>CITY</th>
+    <th>CLICK TO EDIT</th>
   </tr>
   
   <tr *ngFor="let stu of students" style="text-align: left" >
@@ -24,14 +25,15 @@ import { StudentService } from '../student.service';
   </tr>
   
 </table>
-
-<label>ID</label><input type = "number"  [(ngModel)]="id" min = "0" ><br>
-<label> NAME</label> <input type = "text" [(ngModel)]="name"><br>
-<label> AGE </label> <input type = "number" [(ngModel)]="age" min="4"><br>
-<label> CITY</label> <input type="text" [(ngModel)]="city" ><br><br>
-<button type = "submit" (click)="onClick()">ADD</button>
+<br><br>
+<div *ngIf="flag">
+<label>ID</label><input type = "number"  [(ngModel)]="stu[0].id" min = "0" ><br>
+<label> NAME</label> <input type = "text" [(ngModel)]="stu[0].name"><br>
+<label> AGE </label> <input type = "number" [(ngModel)]="stu[0].age" min="4"><br>
+<label> CITY</label> <input type="text" [(ngModel)]="stu[0].city" ><br><br>
+<button type = "submit" (click)="onClick()">DONE</button>
 <br>
-
+</div>
 
    `,
   styles: []
@@ -42,6 +44,8 @@ public id;
 public city='';
 public name='';
 public age;
+public flag=false;
+public stu;
   constructor( private _studentService: StudentService,private route:Router) { }
 
   ngOnInit() {
@@ -49,25 +53,11 @@ public age;
   }
   change(id)
   {
-    
-   let stu =this.students.filter(students=> students);
-   this.id= stu[id].id;
-   this.name= stu[id].name;
-   this.age=stu[id].age;
-   this.city=stu[id].city;
+    this.flag=true;
+    this.stu =this._studentService.getStudent().filter(student=> student.id==id);
+   
   }
   
-  onClick()
-  {
-     let stud=
-       {
-       "id":this.id,
-       "name":this.name,
-       "age": this.age,
-       "city":this.city
-       }
-     if(this.id!=null && this.name!='' && this.age!=null && this.city!= ' ')
-     this._studentService.students.push(stud);
-  }
+ 
 
 }
