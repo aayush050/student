@@ -7,13 +7,12 @@ import { StudentService } from '../student.service';
    
    <app-button></app-button>
    <h2> STUDENT LIST</h2>
-   <table style="width:70%">
+   <table style="width:50%">
   <tr style="text-align: left">
     <th>ID</th>
     <th>NAME</th> 
     <th>AGE</th>
     <th>CITY</th>
-    <th>CLICK TO EDIT</th>
   </tr>
   
   <tr *ngFor="let stu of students" style="text-align: left" >
@@ -25,13 +24,12 @@ import { StudentService } from '../student.service';
   </tr>
   
 </table>
-<br><br>
 <div *ngIf="flag">
-<label>ID</label><input type = "number"  [(ngModel)]="stu[0].id" min = "0" ><br>
-<label> NAME</label> <input type = "text" [(ngModel)]="stu[0].name"><br>
-<label> AGE </label> <input type = "number" [(ngModel)]="stu[0].age" min="4"><br>
-<label> CITY</label> <input type="text" [(ngModel)]="stu[0].city" ><br><br>
-<button type = "submit" (click)="onClick()">DONE</button>
+<label>ID</label><input type = "number"  [(ngModel)]="editstudent.id" min = "0" readonly><br>
+<label> NAME</label> <input type = "text" [(ngModel)]="editstudent.name"><br>
+<label> AGE </label> <input type = "number" [(ngModel)]="editstudent.age" min="4"><br>
+<label> CITY</label> <input type="text" [(ngModel)]="editstudent.city" ><br><br>
+<button type = "submit" (click)="onClick(editstudent)">SAVE</button>
 <br>
 </div>
 
@@ -45,7 +43,8 @@ public city='';
 public name='';
 public age;
 public flag=false;
-public stu;
+public editstudent;
+public need;
   constructor( private _studentService: StudentService,private route:Router) { }
 
   ngOnInit() {
@@ -53,11 +52,24 @@ public stu;
   }
   change(id)
   {
-    this.flag=true;
-    this.stu =this._studentService.getStudent().filter(student=> student.id==id);
-   
+   this.need=id;
+   this.flag=true;
+   const stu =this.students.filter(stu=> stu.id==id)[0];
+   this.editstudent=JSON.parse(JSON.stringify(stu));
   }
   
- 
+  onClick(editstudent)
+  {
+    if(editstudent.id!=null && editstudent.name!='' && editstudent.age!=null && editstudent.city!= ' '){
+      this.students.forEach((student)=>{
+        if(student.id === editstudent.id){
+          student.name = editstudent.name;
+          student.age = editstudent.age;
+          student.city = editstudent.city;
+        }
+      });
+    }
+    
+  }
 
 }

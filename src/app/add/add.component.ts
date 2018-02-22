@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   <label> NAME</label> <input type = "text" [(ngModel)]="name"><br>
   <label> AGE </label> <input type = "number" [(ngModel)]="age" min="4"><br>
   <label> CITY</label> <input type="text" [(ngModel)]="city"><br><br>
-    <button type = "submit" (click)="onClick()">ADD</button>
+    <button type = "submit" (click)="onClick(id)">ADD</button>
    
   `,
   styles: []
@@ -21,12 +21,14 @@ id;
 name='';
 age;
 city = '';
+public students=[];
   constructor(private studentService: StudentService,private route: Router) { }
 
   ngOnInit() {
+    this.students=this.studentService.getStudent();
   }
 
-  onClick()
+  onClick(idk)
   {
      let stud=
        {
@@ -35,7 +37,18 @@ city = '';
        "age": this.age,
        "city":this.city
        }
-     if(this.id!=null && this.name!='' && this.age!=null && this.city!= ' ')
+       let i=0;
+       let flag=true;
+       let sid=idk;
+       const stu =this.students.filter(stu=> stu.id==idk);
+       console.log(stu.length);
+       if(stu.length > 0)
+       {
+         flag=false;
+         window.alert("Student ID Already Exist");
+       }
+      
+     if(this.id!=null && this.name!='' && this.age!=null && this.city!= ' ' && flag==true)
      this.studentService.students.push(stud);
   }
   
